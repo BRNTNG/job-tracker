@@ -6,36 +6,49 @@
 <meta property="og:url" content="https://brntng.github.io/job-tracker/">
 <title>Job Tracker - BA / PM roles</title>
 <style>
-*{box-sizing:border-box}body{font-family:-apple-system,system-ui,Segoe UI,Roboto,sans-serif;margin:0;background:#f4f6f8;color:#1c1e21}
-header{background:#0d2d5e;color:#fff;padding:22px 20px}header h1{margin:0 0 4px;font-size:22px}header p{margin:0;opacity:.85;font-size:14px}
-.wrap{max-width:980px;margin:0 auto;padding:16px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;align-items:center}
-.chip{border:1px solid #ccd4dd;background:#fff;border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer}
-.chip.active{background:#0d2d5e;color:#fff;border-color:#0d2d5e}
-#q{flex:1;min-width:180px;padding:8px 12px;border:1px solid #ccd4dd;border-radius:8px;font-size:14px}
-select.f{padding:8px 10px;border:1px solid #ccd4dd;border-radius:8px;font-size:13px;background:#fff;max-width:170px}
-.star{background:none;border:none;font-size:22px;cursor:pointer;color:#c3cad4;padding:0;line-height:1}
-.star.on{color:#f5a623}
-.appliedbtn{background:none;border:1px solid #ccd4dd;border-radius:999px;font-size:12px;cursor:pointer;color:#5b6470;padding:5px 12px;white-space:nowrap}
-.appliedbtn.on{background:#137333;border-color:#137333;color:#fff}
-.tag.applied{background:#e6f4ea;color:#137333}
-.notintbtn{background:none;border:1px solid #ccd4dd;border-radius:999px;font-size:12px;cursor:pointer;color:#5b6470;padding:5px 12px;white-space:nowrap}
-.notintbtn.on{background:#c62828;border-color:#c62828;color:#fff}
-.tag.notint{background:#fdecea;color:#c62828}
-.cardbtns{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.cattag{display:inline-block;font-size:11px;background:#eef1f5;color:#5b6470;border-radius:4px;padding:2px 8px;margin-left:6px;vertical-align:middle;font-weight:600}
-.card{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.card h3{margin:0 0 4px;font-size:16px}.card h3 a{color:#0d2d5e;text-decoration:none}.card h3 a:hover{text-decoration:underline}
-.meta{font-size:13px;color:#5b6470;margin:2px 0}.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:2px 8px;margin-right:6px;vertical-align:middle}
-.tag.linkedin{background:#e8f0fe;color:#0a66c2}.tag.jobbank{background:#e6f4ea;color:#137333}.tag.wwr{background:#f3e8fd;color:#7b1fa2}.tag.dice{background:#e3f2fd;color:#0d47a1}
-.new{background:#d32f2f;color:#fff}.count{font-size:13px;color:#5b6470;margin:10px 0}
-.manual{background:#fffbe8;border:1px solid #f0d878;border-radius:10px;padding:14px 16px;margin-top:18px}
-.manual h3{margin:0 0 8px;font-size:15px}.manual a{color:#0d2d5e;font-weight:600}.manual p{font-size:13px;margin:4px 0 10px;color:#5b6470}
-footer{font-size:12px;color:#8a94a0;text-align:center;padding:20px}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;background:#fbfbf9;color:#111;-webkit-font-smoothing:antialiased}
+header{max-width:760px;margin:0 auto;padding:56px 24px 8px}
+header .eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6b6b66;margin:0 0 14px}
+header h1{margin:0;font-size:42px;line-height:1.08;font-weight:650;letter-spacing:-.02em}
+header p{margin:14px 0 0;font-size:17px;line-height:1.5;color:#5c5c57;max-width:560px}
+.wrap{max-width:760px;margin:0 auto;padding:24px 24px 48px}
+.search{position:sticky;top:0;background:#fbfbf9;padding:14px 0 10px;z-index:5}
+#q{width:100%;padding:16px 20px;border:1px solid #e3e3dc;border-radius:999px;font-size:16px;background:#fff;color:#111;outline:none}
+#q:focus{border-color:#111}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px;align-items:center}
+.chip{border:1px solid #e3e3dc;background:#fff;border-radius:999px;padding:9px 16px;font-size:14px;cursor:pointer;color:#333}
+.chip.active{background:#111;color:#fff;border-color:#111}
+select.f{padding:9px 14px;border:1px solid #e3e3dc;border-radius:999px;font-size:14px;background:#fff;color:#333;max-width:190px}
+.count{font-size:14px;color:#8a8a83;margin:22px 2px 14px}
+.card{background:#fff;border:1px solid #e8e8e1;border-radius:20px;padding:22px;margin-bottom:12px}
+.card:hover{border-color:#cfcfc6}
+.card h3{margin:0;font-size:18px;line-height:1.35;font-weight:600;letter-spacing:-.01em}
+.card h3 a{color:#111;text-decoration:none}
+.cardbtns{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px}
+.cardhead{display:flex;justify-content:space-between;align-items:flex-start}
+.star{background:none;border:none;font-size:20px;cursor:pointer;color:#c9c9c0;padding:2px;line-height:1}
+.star.on{color:#111}
+.appliedbtn,.notintbtn{background:#fff;border:1px solid #e3e3dc;border-radius:999px;font-size:12.5px;cursor:pointer;color:#5c5c57;padding:7px 12px;white-space:nowrap}
+.appliedbtn.on{background:#111;border-color:#111;color:#fff}
+.notintbtn.on{background:#fff;border-color:#111;color:#111;font-weight:600}
+.meta{font-size:14px;color:#6b6b66;margin:8px 0 0;line-height:1.45}
+.meta strong{color:#111;font-weight:600}
+.tag{display:inline-block;font-size:11px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;margin-right:6px;vertical-align:middle;background:#f1f1ec;color:#6b6b66}
+.tag.new{background:#111;color:#fff}
+.tag.applied{background:#e7f4e4;color:#2e6b24}
+.tag.notint{background:#f6e8e8;color:#8a3434}
+.cattag{display:inline-block;font-size:12px;color:#8a8a83;margin-left:8px;vertical-align:middle}
+.manual{background:#fff;border:1px solid #e8e8e1;border-radius:20px;padding:22px;margin-top:28px}
+.manual h3{margin:0 0 10px;font-size:16px;font-weight:600}
+.manual a{color:#111;font-weight:600}
+.manual p{font-size:14px;line-height:1.5;margin:4px 0 12px;color:#6b6b66}
+footer{font-size:13px;color:#a3a39b;text-align:center;padding:28px 20px 40px}
+@media(max-width:560px){header{padding-top:40px}header h1{font-size:34px}.cardbtns{flex-direction:column;align-items:flex-end}}
 </style></head><body>
-<header><h1>Job Tracker</h1><p>Business analyst, project management &amp; related roles &mdash; Toronto / GTA + remote Canada. Auto-checked every few hours.</p></header>
+<header><p class="eyebrow">Job Tracker</p><h1>Find your next role.</h1><p>Business analyst, project management &amp; related roles &mdash; Toronto / GTA + remote Canada. Checked twice a day.</p></header>
 <div class="wrap">
+<div class="search"><input id="q" type="search" placeholder="Search by keyword or company"></div>
 <div class="toolbar">
 <button class="chip active" data-f="all">All</button>
 <button class="chip" data-f="linkedin">LinkedIn</button>
@@ -48,7 +61,6 @@ footer{font-size:12px;color:#8a94a0;text-align:center;padding:20px}
 <select class="f" id="cat"><option value="all">All categories</option></select>
 <select class="f" id="sal"><option value="0">Any salary</option><option value="40000">$40k+</option><option value="50000">$50k+</option><option value="60000">$60k+</option><option value="75000">$75k+</option><option value="100000">$100k+</option></select>
 <select class="f" id="age"><option value="0">Any time</option><option value="7">Last 7 days</option><option value="14">Last 14 days</option><option value="30">Last 30 days</option></select>
-<input id="q" type="search" placeholder="Filter by keyword, company...">
 </div>
 <div class="count" id="count"></div>
 <div id="list"></div>
