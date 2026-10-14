@@ -9,7 +9,7 @@ name: Update job tracker
 on:
   schedule:
     - cron: "0 4,5,16,17 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch: {inputs: {force: {description: 'Run the tracker regardless of the Toronto time gate', required: false, default: 'false'}}}
 
 permissions:
   contents: write
@@ -30,7 +30,7 @@ jobs:
         id: gate
         run: |
           HOUR=$(TZ=America/Toronto date +%H)
-          if [ "$HOUR" = "00" ] || [ "$HOUR" = "12" ]; then
+          if [ "${{ inputs.force }}" = "true" ] || [ "$HOUR" = "00" ] || [ "$HOUR" = "12" ]; then
             echo "run=yes" >> "$GITHUB_OUTPUT"
           else
             echo "run=no" >> "$GITHUB_OUTPUT"
