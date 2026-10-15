@@ -71,3 +71,4 @@ jobs:
           else
             git commit -m "Update job dashboard (automated)"
             git push
+          fi
