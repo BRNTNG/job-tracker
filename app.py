@@ -652,7 +652,7 @@ draw();
         f.write(page)
 
 
-def prune_old(con, days=90):
+def prune_old(con, days=30):
     # Drop listings older than `days` (by posted date, else first-seen date).
     cutoff = (datetime.now(timezone.utc).date() - timedelta(days=days)).isoformat()
     cur = con.execute(
@@ -690,7 +690,7 @@ def main():
     records += fetch_wwr()
     records += fetch_dice([q["query"] for q in cfg.get("dice", [])])
     new, dupes = store(con, records)
-    pruned = prune_old(con, days=90)
+    pruned = prune_old(con, days=30)
     con.close()
     render()
     if os.environ.get("JT_NO_PUBLISH"):
