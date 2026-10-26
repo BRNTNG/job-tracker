@@ -4,9 +4,13 @@ name: Update job tracker
 # Runs the tracker inside GitHub and commits the results back.
 # No Muse / connector approval is involved after setup.
 # GitHub cron has no timezone support, so we run at every UTC hour that can
-# be midnight or noon in Toronto, then gate on America/Toronto inside the job:
+# be midnight or noon in Toronto:
 #   EDT (Mar-Nov): midnight = 04:00 UTC, noon = 16:00 UTC
 #   EST (Nov-Mar): midnight = 05:00 UTC, noon = 17:00 UTC
+# GitHub often delivers scheduled runs late (sometimes by hours), so the gate
+# does NOT check the exact hour. It uses Toronto half-day slots
+# (YYYY-MM-DD-AM / -PM): a run proceeds when its slot differs from the slot
+# recorded in last_slot.txt, which each completed run commits back.
 on:
   schedule:
     - cron: "0 4,5,16,17 * * *"
@@ -31,15 +35,22 @@ jobs:
         uses: actions/checkout@v4
 
 
-      - name: Gate on Toronto midnight/noon
+      - name: Gate on Toronto midnight/noon slot
         id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           HOUR=$(TZ=America/Toronto date +%H)
-          if [ "$HOUR" = "00" ] || [ "$HOUR" = "12" ]; then
+          DAY=$(TZ=America/Toronto date +%F)
+          if [[ "$HOUR" < "12" ]]; then SLOT="${DAY}-AM"; else SLOT="${DAY}-PM"; fi
+          LAST=$(cat last_slot.txt 2>/dev/null || echo "none")
+          echo "Toronto slot: $SLOT (last completed: $LAST, event: $EVENT_NAME)"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$SLOT" != "$LAST" ]; then
             echo "run=yes" >> "$GITHUB_OUTPUT"
           else
             echo "run=no" >> "$GITHUB_OUTPUT"
           fi
+          echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
 
 
       - name: Set up Python
@@ -59,12 +70,15 @@ jobs:
 
       - name: Commit results if changed
         if: steps.gate.outputs.run == 'yes'
+        env:
+          SLOT: ${{ steps.gate.outputs.slot }}
         run: |
           rm -f seed.json
           git config user.name "job-tracker bot"
           git config user.email "actions@github.com"
-          cp dashboard.html index.html
-          git add index.html jobs.db dashboard.html
+          cp index.html dashboard.html
+          printf '%s\n' "$SLOT" > last_slot.txt
+          git add index.html jobs.db dashboard.html last_slot.txt
           git add -A seed.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
